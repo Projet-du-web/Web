@@ -1,9 +1,29 @@
+import {React, useState, useEffect }  from 'react';
 import { LockClosedIcon } from '@heroicons/react/solid';
-import { Link } from 'react-router-dom';
-
+import { BrowserRouter, Navigate, Route, Routes,Link } from 'react-router-dom';
+import { postRegister } from '../Service/api';
 
 
 export default function Register() {
+
+  const [state, setState ] = useState({
+    name :'',
+    email:'',
+    password:'',
+  });
+
+  const handleInputs = e => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const userRegister = async (e) => {
+    e.preventDefault();
+    postRegister(state);
+};
+
   return (
     <>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -22,19 +42,20 @@ export default function Register() {
               </a>
             </p>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form className="mt-8 space-y-6"  onSubmit={userRegister}>
             <div className="rounded-md shadow-sm -space-y-px">
             <div>
                 <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
                   UserName
                 </label>
                 <input
-                  id="UserName"
-                  name="UserName"
                   type="text"
+                  name="name"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Username"
+                  value={state.name}
+                  onChange={handleInputs}
                 />
               </div>
             
@@ -43,13 +64,14 @@ export default function Register() {
                   Email address
                 </label>
                 <input
-                  id="email-address"
                   name="email"
                   type="email"
                   autoComplete="email"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
+                  value={state.email}
+                  onChange={handleInputs}
                 />
               </div>
               <div>
@@ -57,13 +79,14 @@ export default function Register() {
                   Password
                 </label>
                 <input
-                  id="password"
                   name="password"
                   type="password"
                   autoComplete="current-password"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
+                  value={state.password}
+                  onChange={handleInputs}
                 />
               </div>
             </div>

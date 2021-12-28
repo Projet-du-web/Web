@@ -19,10 +19,6 @@ const userSchema = new Schema({
     otp: {
         type: String
     },
-    ReportCreated: [{
-        type: Schema.Types.ObjectId,
-        ref: 'report'
-    }],
 }, 
     { timestamps:true }
 );   
