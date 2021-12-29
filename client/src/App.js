@@ -1,9 +1,14 @@
 import React from 'react';
+import {BrowserRouter as Router} from 'react-router-dom';
 import Section from './Section';
 
 function App() {
   return (
-     <Section /> 
+    <Router>
+    <React.Fragment>
+      <Section/>
+    </React.Fragment>
+  </Router>
   );
 }
 

@@ -1,7 +1,9 @@
 import {React, useState, useEffect }  from 'react';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import {postLogin} from '../Service/api';
+import { login } from '../features/userSlice';
 
 
 export default function Login() {
@@ -10,6 +12,8 @@ export default function Login() {
     email:'',
     password:'',
   });
+
+  const dispatch = useDispatch();
 
   const handleInputs = e => {
     setState({
@@ -20,10 +24,17 @@ export default function Login() {
 
   const userLogin = async (e) => {
     e.preventDefault();
-    postLogin(state);
-    console.log(state);
-};
-
+    const data = await postLogin(state);
+    if(data){
+      dispatch(login({
+        id:data.payload.user._id,
+        name:data.payload.user.name,
+        email:data.payload.user.email,
+        admin:data.payload.user.admin,
+      }));
+    }
+ }
+  
   return (
     <>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">

@@ -18,11 +18,11 @@ module.exports.create_ressource = async (req,res) => {
     if(!errors.isEmpty()){
         return res.status(400).json({ errors: errors.array() });
      }
-     
-     
-     
+    
      try{
      const { title,description,location, Annomalies} = req.body;
+     console.log(Annomalies);
+     console.log(Annomalies);
      console.log(Annomalies.toString());
      
     /* const ressource = RessourceSchema.create({
@@ -42,7 +42,7 @@ module.exports.create_ressource = async (req,res) => {
     */
      
      return res.status(200).json({
-        msg:'Your report has been created successfully',
+        msg:'Your resource has been created successfully',
     });
     } catch (error) {
     return res.status(500).json({ errors: error, msg: error.message });

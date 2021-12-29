@@ -102,8 +102,7 @@ module.exports.login  = async (req,res) => {
                         });
                      }
                   );
-                  console.log("vrai");
-                  return res.status(200).json({ msg: 'You have login successfully', token });
+                  return res.status(200).json({ msg: 'You have login successfully', token , payload });
                }else{
                   return res.status(401).json({ errors: [{ msg: 'Password is not correct' }] });
                } 

@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from 'axios';
 
 const usersUrl = 'http://localhost:5000';
@@ -41,7 +40,6 @@ export const postLogin = async (user) => {
             console.log(error.response.status);
             console.log(error.response.data);
          }
-         this.handleAxiosError(error);
      }
 }
     
