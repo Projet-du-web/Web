@@ -25,13 +25,12 @@ module.exports = isEmpty;
 module.exports.registerValiations = [
 	body('name').not().isEmpty().trim().withMessage('Name is required'),
 	body('email').not().isEmpty().trim().withMessage('Email is required'),
-	body('password')
-		.isLength({ min: 8 })
-		.withMessage('Password must be 6 characters long'),
+   body('Role').not().isEmpty().trim().withMessage('Role is required'),
+	body('password').isLength({ min: 8 }).withMessage('Password must be 6 characters long'),
 ];
 
 module.exports.register  = async (req,res)  => {
-   const { name, email, password } = req.body;
+   const { name, email,Role, password } = req.body;
    const errors = validationResult(req);
 
    if(!errors.isEmpty()){
@@ -53,6 +52,7 @@ module.exports.register  = async (req,res)  => {
          const user = User.create({
             name,
             email,
+            Role,
             password : hash,
          });
          //CREATE TOKEN
@@ -233,13 +233,8 @@ module.exports.postOTP = async (req, res, next) => {
 
 module.exports.getUsers = async (req,res) => {
    User.find({}, function(err, users) {
-      var userMap = {};
-  
-      users.forEach(function(user) {
-        userMap[user._id] = user;
-      });
-  
-      res.send(userMap);  
+   
+      res.send(users);  
     });
 }
 

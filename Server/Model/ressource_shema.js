@@ -2,8 +2,7 @@ const {model,Schema} = require("mongoose");
 
 const RessourceSchema = new Schema({
     url:{
-        type:String,
-        required:false
+        type:String
     },
     title:{
         type:String,
@@ -17,13 +16,16 @@ const RessourceSchema = new Schema({
         type:String,
         required:true
     },
-    Annomalies:[{
-         type: String,
-         required : true
-    }],
-    Responsable: {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
+    Responsable:{
+        type:String,
+        required:true
+    },
+    Annomalies:{
+        type:String,
+        required:true
+   },
+    QRCODE:{
+        type:String,
     },
 }, 
     { timestamps:true }

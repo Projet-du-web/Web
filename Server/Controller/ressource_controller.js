@@ -1,86 +1,89 @@
 const {body, validationResult} = require('express-validator');
 const RessourceSchema = require('../Model/ressource_shema');
-const User = require('../Model/user_shema');
-const { v4: uuidv4 } = require('uuid');
-const formidable = require('formidable');
-const jwt = require('jsonwebtoken');
+const QRCode = require('qrcode');
 
 
 module.exports.ressourceValiations = [
    body('description').not().isEmpty().trim().withMessage('Description is required'),
    body('location').not().isEmpty().trim().withMessage('Location is required'),
+   body('Responsable').not().isEmpty().trim().withMessage('Responsable is required'),
    body('Annomalies').not().isEmpty().trim().withMessage('Annomalies is required'),
 ];
 
-module.exports.create_ressource = async (req,res) => {
+ const generateQR = async (id) => {
+     try{
+        const url = QRCode.toDataURL(id);
+        return url;
+     }catch(err){
+        console.error(err);
+     }
+ }
 
+
+module.exports.create_ressource = async (req,res) => {
+   
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({ errors: errors.array() });
      }
-    
      try{
-     const { title,description,location, Annomalies} = req.body;
-     console.log(Annomalies);
-     console.log(Annomalies);
-     console.log(Annomalies.toString());
+     const { title,description,location, Responsable, Annomalies, AnomalieString} = req.body;   
      
-    /* const ressource = RessourceSchema.create({
+     const ressource = await RessourceSchema.create({
+          url:'',
           title :title,
           description : description,
           location : location,
-          Annomalies: Annomalies
-    });*/
+          Responsable : Responsable,
+          Annomalies: AnomalieString,
+          QRCODE:'',
+    });
 
-
-    /*const RessourceId = ressource._id
-    const findRessource = RessourceSchema.find({_id :RessourceId });
+    const _id = ressource._id
+    const findRessource = await RessourceSchema.findOne({ _id })
     
     if (findRessource){
-        findRessource.url = `https://univ.rouen/Ressources/${RessourceId}`;
+        findRessource.url = `Ressources/id/${_id}`;
+        const urlqr = await generateQR(`Ressources/id/${_id}`);
+        findRessource.QRCODE=urlqr;
+        await findRessource.save();
     }
-    */
-     
      return res.status(200).json({
         msg:'Your resource has been created successfully',
     });
     } catch (error) {
-    return res.status(500).json({ errors: error, msg: error.message });
+       return res.status(500).json({ errors: error, msg: error.message });
     }
 }  
 
 
-/*    
-    
-      console.log(req.body);
+   module.exports.getRessource = async (req,res) => {
+      RessourceSchema.find({}, function(err, ressources) {
+         res.send(ressources);  
+       });
+   }
+
+
+
+   module.exports.getRessourceId = async (req,res) => {
+   
       
-      const { reporttitle,reportlocation,reportdescription,reportimage} = req.body;
+      try{
+         const _id = req.params.id;
+            const ressource = await RessourceSchema.findOne({_id});  
+            console.log(ressource);
 
-      const usertoken = req.headers.authorization;
-      const token = usertoken.split(' ');
-      const decoded = jwt.verify(token[1],'mystrongjwt');
-      console.log("--------------------------------------");   
-        try {
-                const response = await Report.create({
-                    reporttitle,
-                    reportlocation,
-                    reportdescription
-                });
+         return res.status(200).json({
+            msg:'Ressource Trouvée',
+            ressource
+        });
+      }catch(err){
+         console.error(err);
+      }
+     
+   }
 
 
-                const user = User.findOne({_id : decoded.user._id});
-                if(user){
-                    User.updateOne({ ReportCreated: [] }, response._id , function(err, res) {
-                        if (err) throw err;
-                        console.log("1 document updated");
-                      });
-                }
 
-                return res.status(200).json({
-                    msg: 'Your report has been created successfully',
-                    response,
-                });
-        } catch (error) {
-            return res.status(500).json({ errors: error, msg: error.message });
-        }  
-        */
+
+

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {postLogin} from '../Service/api';
 import { login } from '../features/userSlice';
+import logoblack from '../../assets/logoblack.png';
 
 
 export default function Login() {
@@ -22,6 +23,7 @@ export default function Login() {
     });
   };
 
+
   const userLogin = async (e) => {
     e.preventDefault();
     const data = await postLogin(state);
@@ -31,7 +33,7 @@ export default function Login() {
         name:data.payload.user.name,
         email:data.payload.user.email,
         admin:data.payload.user.admin,
-      }));
+      })); 
     }
  }
   
@@ -42,16 +44,9 @@ export default function Login() {
           <div>
             <img
               className="mx-auto h-12 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-              alt="Workflow"
+              src={logoblack}
             />
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
-              Or Create One{' '}
-              <a className="font-medium text-indigo-600 hover:text-indigo-500">
-                <Link to='/Register'>Sign up </Link>
-              </a>
-            </p>
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Connectez-vous à votre compte</h2>
           </div>
           <form className="mt-8 space-y-6" onSubmit={userLogin}>
             <div className="rounded-md shadow-sm -space-y-px">

@@ -9,6 +9,7 @@ export default function Register() {
   const [state, setState ] = useState({
     name :'',
     email:'',
+    Role:'',
     password:'',
   });
 
@@ -29,30 +30,19 @@ export default function Register() {
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <img
-              className="mx-auto h-12 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-              alt="Workflow"
-            />
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Create your account</h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
-              Already Registred ?{' '}
-              <a className="font-medium text-indigo-600 hover:text-indigo-500">
-                <Link to='/Authentification'>Sign in </Link>
-              </a>
-            </p>
+            <h3 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Ajouter un utilisateur</h3>
           </div>
           <form className="mt-8 space-y-6"  onSubmit={userRegister}>
             <div className="rounded-md shadow-sm -space-y-px">
             <div>
-                <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="email-address" className="block text-sm font-medium text-gray-700 ">
                   UserName
                 </label>
                 <input
                   type="text"
                   name="name"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm my-2"
                   placeholder="Username"
                   value={state.name}
                   onChange={handleInputs}
@@ -68,9 +58,22 @@ export default function Register() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm my-2"
                   placeholder="Email address"
                   value={state.email}
+                  onChange={handleInputs}
+                />
+              </div>
+              <div>
+                <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
+                  Role
+                </label>
+                <input
+                  name="Role"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm my-2"
+                  placeholder="Role"
+                  value={state.Role}
                   onChange={handleInputs}
                 />
               </div>
@@ -83,34 +86,13 @@ export default function Register() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm my-2"
                   placeholder="Password"
                   value={state.password}
                   onChange={handleInputs}
                 />
               </div>
             </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                  Forgot your password?
-                </a>
-              </div>
-            </div>
-
             <div>
               <button
                 type="submit"
@@ -119,7 +101,7 @@ export default function Register() {
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                   <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
                 </span>
-                Sign up
+                Ajouter
               </button>
             </div>
           </form>

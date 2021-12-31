@@ -6,24 +6,50 @@ import { selectUser } from '../features/userSlice';
 const Routelinks = ({component: Component, restricted, ...rest}) => {
 
     const user = useSelector(selectUser);
-
-     if(user === null && restricted){
-            return ( 
-                <Route {...rest}  render={props => (
-                    <Component {...props} /> )}/>
-            );
-    }else{
-            if(user.admin === true && restricted){
+    const data = localStorage.getItem('user');
+   
+    if(data){
+        const userlocal = JSON.parse(data);
+        
+            if(userlocal.admin){
                 return ( 
                     <Route {...rest}  render={props => (
                         <Redirect to="/Dashboard-admin" /> )} />
                 );
-            }else if(user.admin === false && restricted){
+            }else{
                 return ( 
                     <Route {...rest}  render={props => (
-                        <Redirect to="/Register" /> )} />
+                        <Redirect to="/Dashboard" /> )}/>
                 );
-            }            
+            }
+         
+    }else{
+
+        if(!user){
+            console.log("dkhel1");
+               return ( 
+                   <Route {...rest}  render={props => (
+                       <Component {...props} /> )}/>
+               );
+   
+       }else if(user){
+   
+           if(user.admin){
+               return ( 
+                   <Route {...rest}  render={props => (
+                       <Redirect to="/Dashboard-admin" /> )} />
+               );
+            }else{
+               return ( 
+                   <Route {...rest}  render={props => (
+                       <Redirect to="/Dashboard" /> )}/>
+               );
+           }
+
+
+
+    }
+          
   }
 
 };

@@ -1,32 +1,32 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../features/userSlice';
-
 
 const PrivateAdminRoute = ({component: Component, restricted, ...rest}) => {
 
-    const user = useSelector(selectUser) ;
+    const data = localStorage.getItem('user');
 
-    if(user === null ){
-        return ( 
-            <Route {...rest}  render={props => (
-                <Redirect to="/Login" /> )}/>
-        );
-    }else{
-        if(user.admin && !restricted){
+    if(data){
+        const user = JSON.parse(data);
+        
+        if(user.admin){
+            console.log("dkhel");
             return ( 
                 <Route {...rest}  render={props => (
                     <Component {...props}/> )} />
             );
-        }else if(!user.admin && !restricted){
+         }else{
             return ( 
                 <Route {...rest}  render={props => (
                     <Redirect to="/Login" /> )}/>
             );
-        }   
-    }
+        }
+    }else{
 
+        return ( 
+            <Route {...rest}  render={props => (
+                <Redirect to="/Login" /> )}/>
+        );
+    }
    
 };
 export default PrivateAdminRoute;

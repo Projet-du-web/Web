@@ -1,8 +1,9 @@
-import { Fragment,useEffect,useState } from 'react';
+import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-import DataList from '../DataList';
 import logo from '../../assets/logo.png';
+import GridAcceuil from '../../GridAcceuil.js';
+
 
 const user = {
   name: 'Tom Cook',
@@ -11,13 +12,15 @@ const user = {
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 const navigation = [
-  { name: 'Dashboard', href: '/Dashboard-admin', current: true },
+  { name: 'Dashboard', href: '/Dashboard', current: true },
+  { name: 'Tickets', href: '/Responsable-ticket', current: false },
+  { name: 'Ressources', href: '/Responsable-ressource', current: false },
 ]
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
-
 
 export default function Example() {
 
@@ -25,7 +28,9 @@ export default function Example() {
     localStorage.clear();
     window.location.replace('/Login');
   }
- 
+
+  
+  
   return (
       <div className="min-h-full">
         <Disclosure as="nav" className="bg-gray-800">
@@ -36,8 +41,9 @@ export default function Example() {
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
                       <img
-                        className="h-8"
+                        className="h-8 "
                         src={logo}
+                        alt="Workflow"
                       />
                     </div>
                     <div className="hidden md:block">
@@ -62,7 +68,6 @@ export default function Example() {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
-
                     <button 
                     onClick={() => DestroyToken()}
                     className='bg-gray-900 text-white
@@ -70,7 +75,7 @@ export default function Example() {
                               px-3 py-2 rounded-md text-sm font-medium' >
                             Sign out
                           </button>
-                      
+
                       {/* Profile dropdown */}
                       <Menu as="div" className="ml-3 relative">
                         <div>
@@ -78,7 +83,7 @@ export default function Example() {
                             <span className="sr-only">Open user menu</span>
                             <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
                           </Menu.Button>
-                        </div>
+                        </div>                       
                       </Menu>
                     </div>
                   </div>
@@ -122,27 +127,24 @@ export default function Example() {
                       <div className="text-base font-medium leading-none text-white">{user.name}</div>
                       <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
                     </div>
-                    <button
-                      type="button"
-                      className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                    >
-                      <span className="sr-only">View notifications</span>
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
                   </div>
-                  
                 </div>
               </Disclosure.Panel>
             </>
           )}
         </Disclosure>
+
+      {
         <main>
-          <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            <div className="px-4 py-6 sm:px-0">
-                 <DataList />         
-            </div>
+        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <div className="px-4 py-6 sm:px-0">
+            
+               <GridAcceuil /> 
+              
           </div>
-        </main>
+        </div>
+      </main>
+        }
       </div>
   )
 }
