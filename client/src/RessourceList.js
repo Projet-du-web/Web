@@ -1,7 +1,7 @@
 import { useEffect,useState } from 'react';
 import { resList } from './ressList'
-import { getRessource } from './Components/Service/api';
-  
+import { getRessource, DeleteRess } from './Components/Service/api';
+
   export default function TicketList() {
 
     const [Ressource,setRessource] = useState([]);
@@ -16,6 +16,17 @@ import { getRessource } from './Components/Service/api';
     useEffect(async() => {
       fetchData();
     },[]); 
+
+
+
+
+    const OnDelete = (url) => {
+      console.log(url);
+      const data = DeleteRess(url);
+      fetchData();
+    }
+
+
 
 
     return (
@@ -117,13 +128,17 @@ import { getRessource } from './Components/Service/api';
 
                       <td className="px-6 py-4 whitespace-nowrap text-center font-medium">
                       <span className="sm:ml-3">
-                        <button
+                        {
+                           user.admin ? null : (<button
                           type="button"
                           className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          onClick={() => OnDelete(ressource.url)}
                         >
-                          Supprimer ressource
-                        </button>
+                          Supprimer
+                        </button>)
 
+                        }
+                        
                       </span>
                       </td>
                       

@@ -1,3 +1,7 @@
+import { useEffect } from 'react';
+import Avatar from "@material-ui/core/Avatar";
+import styled from "styled-components";
+
 /* This example requires Tailwind CSS v2.0+ */
 const people = [
     {
@@ -12,6 +16,18 @@ const people = [
   ]
   
   export default function GridAcceuil() {
+
+    const data = localStorage.getItem('user');
+    const user = JSON.parse(data);
+
+    const AvatarContainer = styled.div`
+      display: flex;
+      margin-bottom: 14px;
+      & > * {
+        margin: 4px;
+      }
+    `;
+
     return (
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -50,21 +66,23 @@ const people = [
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {people.map((person) => (
-                    <tr key={person.email}>
+                  
+                    <tr key={user.email}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <div className="flex-shrink-0 h-10 w-10">
-                            <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
+                        <div className="flex-shrink-0 h-10 w-10">
+                          <AvatarContainer >
+                            <Avatar alt={user.name.toUpperCase()} src="/broken-image.jpg" />
+                          </AvatarContainer>
                           </div>
                           <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">{person.name}</div>
-                            <div className="text-sm text-gray-500">{person.email}</div>
+                            <div className="text-sm font-medium text-gray-900">{user.name}</div>
+                            <div className="text-sm text-gray-500">{user.email}</div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{person.title}</div>
+                        <div className="text-sm text-gray-900">{user.title}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <a
@@ -83,7 +101,7 @@ const people = [
                         </a>
                       </td>
                     </tr>
-                  ))}
+                  
                 </tbody>
               </table>
             </div>

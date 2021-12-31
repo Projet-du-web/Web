@@ -143,3 +143,21 @@ export const getRessourceId = async (id) => {
 
    
     
+export const DeleteRess = async (url) => {
+  const config = {
+      headers: {
+        "Content-Type": 'application/json',
+      },
+    };
+    try {
+      const id = url.substr(14, url.length);
+      const { data } = await axios.delete(`${usersUrl}/deleteRess/${id}`, config);
+      window.location.replace('/Responsable-ressource');
+      return data;
+    }catch (error) {
+      if (error.response) {
+          console.log(error.response.status);
+          console.log(error.response.data);
+       }
+   }
+}

@@ -1,25 +1,32 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../features/userSlice';
-
 
 const PrivateRoute = ({component: Component, restricted, ...rest}) => {
 
-    const user  = useSelector(selectUser) ;
+    const data = localStorage.getItem('user');
 
- if(user === null && !restricted){
-    return ( 
-        <Route {...rest}  render={props => (
-            <Redirect to="/Login" /> )}/>
-    );
- }else if(user && !restricted){
+    if(data){
+        const user = JSON.parse(data);
+
+        if(user.admin){
+            return ( 
+                <Route {...rest}  render={props => (
+                    <Redirect to="/Login" /> )}/>
+            );
+
+        }else{
+            return ( 
+                <Route {...rest}  render={props => (
+                    <Component {...props}/> )} />
+            );
+        }
+
+    }else{
         return ( 
             <Route {...rest}  render={props => (
-                <Component {...props}/> )} />
+                <Redirect to="/Login" /> )}/>
         );
-
     }
-   
+
 };
 export default PrivateRoute;

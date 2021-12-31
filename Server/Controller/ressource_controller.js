@@ -84,6 +84,13 @@ module.exports.create_ressource = async (req,res) => {
    }
 
 
-
+   module.exports.DeleteRess = async (req,res) => {
+      const { id } = req.params;
+      RessourceSchema.findOneAndDelete({_id: id}, 
+       (err, result) => {
+       if (err) return res.send(500, err)
+       return res.status(200).json({ message: " Ressource has been deleted " })
+       });
+   }
 
 

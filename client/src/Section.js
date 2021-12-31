@@ -4,6 +4,7 @@ import Login from './Components/Auth/Login';
 import DashboardAdmin from './Components/Dashboard/Dashboard';
 import Routelinks from './Components/Routes/Routelinks';
 import PrivateAdminRoute from './Components/Routes/PrivateAdminRoute';
+import PrivateRoute from './Components/Routes/PrivateRoute';
 import { Provider } from 'react-redux';
 import store from './Components/app/store'
 import Header from './Components/Dashboard/Header';
@@ -24,14 +25,14 @@ const Section = withRouter(({ location }) => {
           <Routelinks restricted ={true} path="/Login" exact component={Login}/>
           <PrivateAdminRoute restricted ={false} path="/Create-Account" exact component={Header}/>
           <PrivateAdminRoute restricted ={false} path="/Dashboard-admin" exact component={DashboardAdmin}/>
-          <Route path="/Dashboard" exact component={DashResp}/>
-          <Route path="/Responsable-ticket" exact component={TicketResp}/>
-          <Route path="/Responsable-ressource" exact component={RessourceResp}/>
-          <Route path="/Responsable-newressource" exact component={NewRessource}/>
-          <Route path="/Ressources/id/:id" exact component={AnomalieForm}/>
+          <PrivateRoute path="/Dashboard" exact component={DashResp}/>
+          <PrivateRoute path="/Responsable-ticket" exact component={TicketResp}/>
+          <PrivateRoute path="/Responsable-ressource" exact component={RessourceResp}/>
+          <PrivateRoute path="/Responsable-newressource" exact component={NewRessource}/>
+          <PrivateRoute path="/Ressources/id/:id" exact component={AnomalieForm}/>
        </Switch>
        </Provider>
-    </section>    
+    </section>
   );
 });
 

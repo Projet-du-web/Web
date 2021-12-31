@@ -20,6 +20,10 @@ const RessourceSchema = new Schema({
         type:String,
         required:true
     },
+    CurrentAnomalie:{
+        type:String,
+        required:false
+    },
     Annomalies:{
         type:String,
         required:true
