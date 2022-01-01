@@ -1,8 +1,8 @@
-import {React, useState, useEffect }  from 'react';
+import {React, useState }  from 'react';
 import { LockClosedIcon } from '@heroicons/react/solid';
-import { BrowserRouter, Navigate, Route, Routes,Link } from 'react-router-dom';
 import { postRegister } from '../Service/api';
-
+import {Helmet} from 'react-helmet';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Register() {
 
@@ -22,11 +22,26 @@ export default function Register() {
 
   const userRegister = async (e) => {
     e.preventDefault();
-    postRegister(state);
+    const data = await postRegister(state);
+    if (data.length > 0) {
+      data.map((error) => toast.error(error.msg));
+    }
 };
 
   return (
     <>
+          <Helmet> 
+           <title> Ajouter un Responsable</title>
+          </Helmet>
+          <Toaster
+              position='top-right'
+              reverseOrder={false}
+              toastOptions={{
+							style: {
+								fontSize: '15px',
+							},
+						}}
+					/>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
@@ -41,7 +56,6 @@ export default function Register() {
                 <input
                   type="text"
                   name="name"
-                  required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm my-2"
                   placeholder="Username"
                   value={state.name}
@@ -57,7 +71,6 @@ export default function Register() {
                   name="email"
                   type="email"
                   autoComplete="email"
-                  required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm my-2"
                   placeholder="Email address"
                   value={state.email}
@@ -70,7 +83,6 @@ export default function Register() {
                 </label>
                 <input
                   name="Role"
-                  required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm my-2"
                   placeholder="Role"
                   value={state.Role}
@@ -85,7 +97,6 @@ export default function Register() {
                   name="password"
                   type="password"
                   autoComplete="current-password"
-                  required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm my-2"
                   placeholder="Password"
                   value={state.password}

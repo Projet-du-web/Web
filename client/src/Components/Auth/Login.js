@@ -1,10 +1,11 @@
 import {React, useState, useEffect }  from 'react';
 import { LockClosedIcon } from '@heroicons/react/solid';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {postLogin} from '../Service/api';
 import { login } from '../features/userSlice';
 import logoblack from '../../assets/logoblack.png';
+import {Helmet} from 'react-helmet';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 export default function Login() {
@@ -27,18 +28,37 @@ export default function Login() {
   const userLogin = async (e) => {
     e.preventDefault();
     const data = await postLogin(state);
-    if(data){
+    if(data.payload){
       dispatch(login({
         id:data.payload.user._id,
         name:data.payload.user.name,
         email:data.payload.user.email,
         admin:data.payload.user.admin,
       })); 
+    }else{
+      if (data.length > 0) {
+        data.map((error) => toast.error(error.msg));
+      }
+     
     }
+    
  }
   
   return (
     <>
+         <Helmet> 
+           <title> Espace Login</title>
+          </Helmet>
+
+          <Toaster
+              position='top-right'
+              reverseOrder={false}
+              toastOptions={{
+							style: {
+								fontSize: '15px',
+							},
+						}}
+					/>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
@@ -58,7 +78,6 @@ export default function Login() {
                   name="email"
                   type="email"
                   autoComplete="email"
-                  required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
                   value={state.email}
@@ -73,7 +92,6 @@ export default function Login() {
                   name="password"
                   type="password"
                   autoComplete="current-password"
-                  required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
                   value={state.password}

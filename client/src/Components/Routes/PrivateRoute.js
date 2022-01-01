@@ -4,7 +4,7 @@ import {Route, Redirect} from 'react-router-dom';
 const PrivateRoute = ({component: Component, restricted, ...rest}) => {
 
     const data = localStorage.getItem('user');
-
+    
     if(data){
         const user = JSON.parse(data);
 
@@ -27,6 +27,6 @@ const PrivateRoute = ({component: Component, restricted, ...rest}) => {
                 <Redirect to="/Login" /> )}/>
         );
     }
-
+   
 };
 export default PrivateRoute;

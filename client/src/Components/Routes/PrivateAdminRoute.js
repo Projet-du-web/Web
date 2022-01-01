@@ -9,7 +9,6 @@ const PrivateAdminRoute = ({component: Component, restricted, ...rest}) => {
         const user = JSON.parse(data);
         
         if(user.admin){
-            console.log("dkhel");
             return ( 
                 <Route {...rest}  render={props => (
                     <Component {...props}/> )} />

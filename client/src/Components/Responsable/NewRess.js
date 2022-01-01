@@ -1,5 +1,4 @@
-import React, {useState,useEffect} from "react";
-import logoblack from '../../assets/logoblack.png';
+import React, {useState} from "react";
 import {postRessource} from '../Service/api';
 
 export default function AnomalieForm() {

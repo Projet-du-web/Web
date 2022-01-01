@@ -7,11 +7,16 @@ const {
        ressourceValiations,
        getRessource,
        getRessourceId,
-       DeleteRess
+       DeleteRess,
+       Save,
+       saveValiations,
+       deleteTicket
 }  = require('../Controller/ressource_controller');
 
 Ressourcerouter.post('/create_ressource',ressourceValiations,create_ressource);
 Ressourcerouter.get('/getRessource',getRessource);
 Ressourcerouter.get('/getRessourceId/:id',getRessourceId)
 Ressourcerouter.delete('/deleteRess/:id',DeleteRess);
+Ressourcerouter.post('/saveRess',saveValiations,Save);
+Ressourcerouter.delete('/deleteTicket/:id',deleteTicket)
 module.exports = Ressourcerouter;

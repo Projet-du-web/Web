@@ -18,6 +18,7 @@ export const postRegister = async (user) => {
         if (error.response) {
             console.log(error.response.status);
             console.log(error.response.data);
+            return error.response.data.errors;
          }
          this.handleAxiosError(error);
      }
@@ -25,7 +26,6 @@ export const postRegister = async (user) => {
 
 
 export const postLogin = async (user) => {
-    console.log(user);
     const config = {
         headers: {
           "Content-Type": 'application/json',
@@ -40,7 +40,8 @@ export const postLogin = async (user) => {
       }catch (error) {
         if (error.response) {
             console.log(error.response.status);
-            console.log(error.response.data);
+            console.log(error.response.data.errors);
+          return error.response.data.errors;
          }
      }
 }
@@ -125,9 +126,7 @@ export const getRessourceId = async (id) => {
       },
     };
     try {
-      console.log("Front get :",id)
       const { data } = await axios.get(`${usersUrl}/getRessourceId/${id}`,config);
-      console.log(data);
       return data;
     }catch (error) {
       if (error.response) {
@@ -137,12 +136,6 @@ export const getRessourceId = async (id) => {
    }
 }
 
-
-
-
-
-   
-    
 export const DeleteRess = async (url) => {
   const config = {
       headers: {
@@ -161,3 +154,55 @@ export const DeleteRess = async (url) => {
        }
    }
 }
+
+export const saveAnomalie = async (state,id) => {
+  const config = {
+      headers: {
+        "Content-Type": 'application/json',
+      },
+    };
+    try {
+      console.log(state);
+      console.log(id);
+      const { data } = await axios.post(`${usersUrl}/saveRess`,state, config);
+      window.location.replace(`/Ressources/id/${id}`);
+      return data;   
+    }catch (error) {
+      if (error.response) {
+          console.log(error.response.status);
+          console.log(error.response.data);
+       }
+   }
+}
+
+export const DeleteTicket = async (id) => {
+  const config = {
+      headers: {
+        "Content-Type": 'application/json',
+      },
+    };
+    try {
+      console.log(id);
+      const { data } = await axios.delete(`${usersUrl}/deleteTicket/${id}`, config);
+      window.location.replace('Responsable-ticket');
+      return data;   
+    }catch (error) {
+      if (error.response) {
+          console.log(error.response.status);
+          console.log(error.response.data);
+       }
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
+   
+    

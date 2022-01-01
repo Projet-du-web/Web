@@ -1,8 +1,6 @@
-/* This example requires Tailwind CSS v2.0+ */
 import {getUsers,DeleteUser} from './Service/api';
 import { useEffect,useState } from 'react';
 import styled from "styled-components";
-
 import Avatar from "@material-ui/core/Avatar";
 import zIndex from '@material-ui/core/styles/zIndex';
 

@@ -75,15 +75,12 @@ module.exports.loginValiations = [
 
 module.exports.login  = async (req,res) => {
 
-   console.log(req.body);
    const errors = validationResult(req);
    if(!errors.isEmpty()){
       return res.status(400).json({ errors: errors.array() });
    }
 
    const { email, password } = req.body;
-   console.log(email);
-   console.log(password);
    try {
       const user = await User.findOne({ email });
       if(user){
@@ -150,7 +147,6 @@ module.exports.forgotPassword = async (req, res, next) => {
        }, 300000);
    }
    catch (err) {
-       console.log("Error in sending email", err.message)
        return res.status(400).json({ message: `Error in generateOTP${err.message}` })
    }
 };
@@ -194,7 +190,6 @@ const validateOTP = (data) => {
 module.exports.postOTP = async (req, res, next) => {
        try {
           const { errors, isValid } = validateOTP(req.body);
-          console.log("req",req.body)
            if (!isValid) {
                return res.status(400).json(errors);
            }
@@ -203,17 +198,13 @@ module.exports.postOTP = async (req, res, next) => {
                errors.confirmNewPassword = 'Password Mismatch'
                return res.status(400).json(errors);
            }
-           console.log("daz 2")
            const user = await User.findOne({ email });
-        console.log("daz 3")
            if (user.otp === "") {
-              console.log("daz 3.1")
                errors.otp = "OTP has expired"
                return res.status(400).json(errors)
            }
-           console.log("daz 4")
            if (user.otp !== otp) {
-              console.log("daz 4.1")
+              
                errors.otp = "Invalid OTP, check your email again"
                return res.status(400).json(errors)
            }

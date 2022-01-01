@@ -26,7 +26,6 @@ const Routelinks = ({component: Component, restricted, ...rest}) => {
     }else{
 
         if(!user){
-            console.log("dkhel1");
                return ( 
                    <Route {...rest}  render={props => (
                        <Component {...props} /> )}/>

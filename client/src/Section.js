@@ -1,22 +1,23 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import { Route, Switch, withRouter} from 'react-router-dom';
 import Login from './Components/Auth/Login';
 import DashboardAdmin from './Components/Dashboard/Dashboard';
 import Routelinks from './Components/Routes/Routelinks';
 import PrivateAdminRoute from './Components/Routes/PrivateAdminRoute';
-import PrivateRoute from './Components/Routes/PrivateRoute';
 import { Provider } from 'react-redux';
 import store from './Components/app/store'
 import Header from './Components/Dashboard/Header';
 import DashResp from './Components/Responsable/DashResp';
 import TicketResp from './Components/Responsable/TicketResp';
 import RessourceResp from './Components/Responsable/RessourceResp';
-import NewRess from './Components/Responsable/NewRess';
 import AnomalieForm from './AnomalieForm.js';
+import PrivateRoute from './Components/Routes/PrivateRoute';
 import NewRessource from './Components/Responsable/NewRessource';
+import Print from './Components/Print'
 
 
 const Section = withRouter(({ location }) => {
+
   return (
     <section>
        <Provider store={store}>
@@ -29,10 +30,11 @@ const Section = withRouter(({ location }) => {
           <PrivateRoute path="/Responsable-ticket" exact component={TicketResp}/>
           <PrivateRoute path="/Responsable-ressource" exact component={RessourceResp}/>
           <PrivateRoute path="/Responsable-newressource" exact component={NewRessource}/>
-          <PrivateRoute path="/Ressources/id/:id" exact component={AnomalieForm}/>
+          <Route path="/Ressources/id/:id" exact component={AnomalieForm}/>
+          <Route path="/Responsable-ressource/Print/:id" exact component={Print} />
        </Switch>
        </Provider>
-    </section>
+    </section>    
   );
 });
 
