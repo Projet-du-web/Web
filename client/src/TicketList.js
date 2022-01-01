@@ -4,6 +4,9 @@ import { getRessource,DeleteTicket} from './Components/Service/api';
 
   export default function TicketList() {
 
+    const data = localStorage.getItem('user');
+    const user = JSON.parse(data);
+
   const [Ressource,setRessource] = useState([]);
   
   const fetchData = async () => {
@@ -55,7 +58,7 @@ import { getRessource,DeleteTicket} from './Components/Service/api';
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {Ressource.map((ticket) => (
-                    ticket.CurrentAnomalie ? (
+                     ticket.Responsable === user.Role ? (ticket.CurrentAnomalie ? (
                       <tr key={ticket._id}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
@@ -84,6 +87,8 @@ import { getRessource,DeleteTicket} from './Components/Service/api';
                       </td>
                     </tr>
                     ) : (null)
+                    ) :(null)
+                    
                   ))}
                 </tbody>
               </table>
