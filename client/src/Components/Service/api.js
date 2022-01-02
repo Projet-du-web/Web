@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const usersUrl = 'http://localhost:5000';
+const usersUrl = 'http://192.168.76.76:4000';
 
 export const postRegister = async (user) => {
     console.log(user);
