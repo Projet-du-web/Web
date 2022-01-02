@@ -2,7 +2,7 @@ const { body, validationResult } = require('express-validator');
 const User = require('../Model/user_shema');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const keys = require('../config/keys');
+const keys = require('../Config/keys');
 const Validator = require('validator');
 const sendEmail = require('../utils/nodemailer')
 require('dotenv').config();
