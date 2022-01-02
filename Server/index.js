@@ -1,10 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const connect = require("./config/db");
+const connect = require("./Config/db");
 const router = require('./Route/userRoutes');
 const Ressourcerouter = require('./Route/RessourceRoute');
 const app = express();
+const server = require('http').createServer(app);
 
 //connect to database
 connect();
@@ -20,15 +21,14 @@ app.use(function(req, res, next) {
        next();
      }});
 
-
-
 app.use(bodyParser.json());
 app.use('/',router);
 app.use('/',Ressourcerouter);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, ()=>{
-    console.log(`Server is Running on Port ${PORT}`);
+const PORT = 4000;
+const hostname = '192.168.76.76'
+server.listen(PORT,hostname, ()=>{
+    console.log(`Server is Running on ${hostname} ${PORT}`);
 })
 
 
