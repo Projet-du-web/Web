@@ -109,7 +109,6 @@ module.exports.Save = async (req,res) => {
         findRessource.CurrentAnomalie = CurrentAnomalie.label;
         await findRessource.save();
     }
-    console.log(findRessource);
     return res.status(200).json({
        msg:'Your resource has been created successfully',
    });

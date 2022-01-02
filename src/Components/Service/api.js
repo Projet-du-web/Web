@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const usersUrl = 'http://192.168.76.76:4000';
+const usersUrl = 'http://localhost:4000';
 
 export const postRegister = async (user) => {
     console.log(user);
@@ -165,7 +165,11 @@ export const saveAnomalie = async (state,id) => {
       console.log(state);
       console.log(id);
       const { data } = await axios.post(`${usersUrl}/saveRess`,state, config);
-      window.location.replace(`/Ressources/id/${id}`);
+      setTimeout(() => { 
+         window.location.replace(`/Ressources/id/${id}`);
+    }, 3001)
+      
+      
       return data;   
     }catch (error) {
       if (error.response) {

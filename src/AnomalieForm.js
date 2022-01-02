@@ -5,7 +5,7 @@ import {getRessourceId,saveAnomalie} from './Components/Service/api';
 import { Disclosure} from '@headlessui/react';
 import logo from './assets/logo.png';
 import { Helmet } from "react-helmet";
-
+import toast, { Toaster } from 'react-hot-toast';
 
 const user = {
   name: 'Tom Cook',
@@ -23,7 +23,6 @@ function classNames(...classes) {
 }
 
 export default function AnomalieForm() {
-
 
   const [values, setValues] = useState({
     resId: 0,
@@ -63,6 +62,11 @@ export default function AnomalieForm() {
   const save = async (e) => {
     e.preventDefault();
     const savedata = saveAnomalie(values,id);
+    if(savedata){
+      toast.success('Rapport Envoyé avec succès Merci.',{
+        duration: 3000,
+      })
+    }
   }
 
     const DestroyToken = () => {
@@ -75,6 +79,15 @@ export default function AnomalieForm() {
            <Helmet>
            <title>Rapport d'anomalie</title>
          </Helmet>
+         <Toaster
+              position='top-right'
+              reverseOrder={false}
+              toastOptions={{
+							style: {
+								fontSize: '15px',
+							},
+						}}
+					/>
           <Disclosure as="nav" className="bg-gray-800">
             {({ open }) => (
               <>
@@ -94,12 +107,9 @@ export default function AnomalieForm() {
                     
                   </div>
                 </div>
-  
-                
               </>
             )}
           </Disclosure>
-  
         {
           <main>
           <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">

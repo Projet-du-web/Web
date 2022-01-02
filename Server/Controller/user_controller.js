@@ -208,7 +208,6 @@ module.exports.postOTP = async (req, res, next) => {
                errors.otp = "Invalid OTP, check your email again"
                return res.status(400).json(errors)
            }
-           console.log("daz 5")
            let hashedPassword;
            hashedPassword = await bcrypt.hash(newPassword, 10)
            user.password = hashedPassword;
