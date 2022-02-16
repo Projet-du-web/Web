@@ -1,10 +1,3 @@
-Compte admin : 
-Email : root@gmail.com
-mot de passe : rootroot
-
-Compte Responsable : 
-Email : idriss@gmail.com
-mot de passe : idriss2020
 
 # Getting Started with Create React App
 
